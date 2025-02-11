@@ -46,6 +46,8 @@ if __name__ == '__main__':
     weather_key = os.getenv("WEATHER_API_KEY")
     bot_key = os.getenv("BOT_API_KEY")
 
+    print(weather_key)
+    print(bot_key)
 
     f = open("users_info.json", encoding="utf-8")
     js_text = json.load(f)
