@@ -87,7 +87,7 @@ if __name__ == '__main__':
 坐标城市：{city}  
 当前天气：{weather}  
 当前风力：{wind}级  
-今日湿度：{humidity}
+今日湿度：{humidity}%
 今日温度：{tem_low}℃~{tem_high}℃ 
 
 庆祝自己在世界上 第{born_days}天  
