@@ -1,5 +1,3 @@
-from wechatpy import WeChatClient
-from wechatpy.client.api import WeChatMessage
 import os
 import json
 import requests
@@ -45,46 +43,81 @@ def get_birthday(birthday):
 
 
 if __name__ == '__main__':
-    app_id = os.getenv("APP_ID")
-    app_secret = os.getenv("APP_SECRET")
-    template_id = os.getenv("TEMPLATE_ID")
     weather_key = os.getenv("WEATHER_API_KEY")
+    bot_key = os.getenv("BOT_API_KEY")
 
-    client = WeChatClient(app_id, app_secret)
-    wm = WeChatMessage(client)
 
     f = open("users_info.json", encoding="utf-8")
     js_text = json.load(f)
     f.close()
+    user_info = js_text['data'][0]
     data = js_text['data']
-    num = 0
     words=get_words()
     out_time=get_time()
 
-    print(words, out_time)
+    born_date = user_info['born_date']
+    birthday = born_date[5:]
+    city = user_info['city']
+    name = user_info['user_name'].upper()
 
-    for user_info in data:
-        born_date = user_info['born_date']
-        birthday = born_date[5:]
-        city = user_info['city']
-        user_id = user_info['user_id']
-        name = user_info['user_name'].upper()
+    wea_city, weather = get_weather(city, weather_key)
 
+    end = ''
+    if weather['date'] == '2025-02-12':
+        end = '别忘记订酒店和火车票嗷'
+    elif weather['date'] == '2025-02-14':
+        end = '最后一天，调整好心态嗷，记得检查火车票和考场\n加油！爱您！'
+    elif weather['date'] == '2025-02-15':
+        end = '莫紧张，祝好姐姐正常发挥'
+    elif weather['date'] == '2025-02-16':
+        end = '恭喜！！！'
+    elif weather['date'] == '2025-02-17':
+        end = '收拾收拾心情，小心感冒嗷'
 
-        wea_city,weather = get_weather(city,weather_key)
-        data = dict()
-        data['time'] = {'value': out_time}
-        data['words'] = {'value': words}
-        data['weather'] = {'value': weather['text_day']+'\t\t\t'}
-        data['city'] = {'value': wea_city+'\t\t\t'}
-        data['tem_high'] = {'value': weather['high']}
-        data['tem_low'] = {'value': weather['low']}
-        data['born_days'] = {'value': get_count(born_date)}
-        data['birthday_left'] = {'value': get_birthday(birthday)}
-        data['wind'] = {'value': weather['wind_direction']+'\t\t\t'}
-        data['name'] = {'value': name}
+    url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key={}".format(bot_key.replace('_','-'))
 
-        res = wm.send_template(user_id, template_id, data)
-        print(res)
-        num += 1
-    print(f"成功发送{num}条信息")
+    content = """{head} ヾ(≧▽≦*)o
+
+φ(゜▽゜*)♪{name}小盆友
+
+今天是{date}
+坐标城市：{city}  
+当前天气：{weather}  
+当前风力：{wind}级  
+今日湿度：{humidity}
+今日温度：{tem_low}℃~{tem_high}℃ 
+
+庆祝自己在世界上 第{born_days}天  
+距离下次生日还有 {birthday_left}天  
+
+( •̀ ω •́ )✧
+
+今日彩虹屁🌈
+{words}
+
+今日MEMO📕
+{end}""".format(
+        head = "早上好哇！",
+        name = name,
+        date = "{} {}".format(weather['date'], out_time[-3:]),
+        city = wea_city,
+        weather = weather['text_day'],
+        wind = weather['wind_scale'],
+        tem_low = weather['high'],
+        tem_high = weather['low'],
+        humidity = weather['humidity'],
+        born_days = get_count(born_date),
+        birthday_left = get_birthday(birthday),
+        words = words,
+        end = end
+    )
+
+    data = {
+        "msgtype": "text",
+        "text": {
+            "content": content,
+        }
+    }
+
+    res = requests.post(url=url,data=json.dumps(data))
+    print(res.text)
