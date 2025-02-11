@@ -2,8 +2,8 @@ from wechatpy import WeChatClient
 from wechatpy.client.api import WeChatMessage
 import os
 import json
-from datetime import datetime, timedelta
 import requests
+from datetime import datetime, timedelta
 
 nowtime = datetime.utcnow() + timedelta(hours=8)
 today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d")
@@ -17,11 +17,12 @@ def get_time():
 
 
 def get_words():
-    words = requests.get("https://tenapi.cn/v2/yiyan?format=json").json()
+    req = requests.get("https://api.shadiao.pro/chp")
+    words = req.json()
     print(words)
-    if words['code'] != 200:
+    if req.status_code != 200:
         return get_words()
-    return words['data']['hitokoto']
+    return words['data']['text']
 
 def get_weather(city, key):
     url = f"https://api.seniverse.com/v3/weather/daily.json?key={key}&location={city}&language=zh-Hans&unit=c&start=-1&days=5"
@@ -74,13 +75,13 @@ if __name__ == '__main__':
         data = dict()
         data['time'] = {'value': out_time}
         data['words'] = {'value': words}
-        data['weather'] = {'value': weather['text_day']}
-        data['city'] = {'value': wea_city}
+        data['weather'] = {'value': weather['text_day']+'\t\t\t'}
+        data['city'] = {'value': wea_city+'\t\t\t'}
         data['tem_high'] = {'value': weather['high']}
         data['tem_low'] = {'value': weather['low']}
         data['born_days'] = {'value': get_count(born_date)}
         data['birthday_left'] = {'value': get_birthday(birthday)}
-        data['wind'] = {'value': weather['wind_direction']}
+        data['wind'] = {'value': weather['wind_direction']+'\t\t\t'}
         data['name'] = {'value': name}
 
         res = wm.send_template(user_id, template_id, data)
