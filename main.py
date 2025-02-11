@@ -43,11 +43,17 @@ def get_birthday(birthday):
 
 
 if __name__ == '__main__':
+    app_id = os.getenv("APP_ID")
+    app_secret = os.getenv("APP_SECRET")
+    template_id = os.getenv("TEMPLATE_ID")
     weather_key = os.getenv("WEATHER_API_KEY")
     bot_key = os.getenv("BOT_API_KEY")
 
-    print(weather_key)
-    print(bot_key)
+    print('app_id',app_id)
+    print('app_secret',app_secret)
+    print('template_id',template_id)
+    print('weather_key',weather_key)
+    print('bot_key',bot_key)
 
     f = open("users_info.json", encoding="utf-8")
     js_text = json.load(f)
