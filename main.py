@@ -47,7 +47,7 @@ if __name__ == '__main__':
     app_secret = os.getenv("APP_SECRET")
     template_id = os.getenv("TEMPLATE_ID")
     weather_key = os.getenv("WEATHER_API_KEY")
-    bot_key = "9ea5362d_ded3_4b36_9ca2_2136d953087a"
+    bot_key = os.getenv("BOT_API_KEY")
 
     print("bot_key", bot_key)
     
