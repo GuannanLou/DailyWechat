@@ -47,13 +47,7 @@ if __name__ == '__main__':
     app_secret = os.getenv("APP_SECRET")
     template_id = os.getenv("TEMPLATE_ID")
     weather_key = os.getenv("WEATHER_API_KEY")
-    bot_key = os.getenv("BOT_KEY")
-
-    print('app_id',app_id)
-    print('app_secret',app_secret)
-    print('template_id',template_id)
-    print('weather_key',weather_key)
-    print('bot_key',bot_key)
+    bot_key = '9ea5362d_ded3_4b36_9ca2_2136d953087a'
 
     f = open("users_info.json", encoding="utf-8")
     js_text = json.load(f)
