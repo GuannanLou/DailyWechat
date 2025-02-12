@@ -1,13 +1,13 @@
-name: send card
+name: time - send card
 on:
   schedule:
-  - cron:  '0 23 * * *'
+  - cron:  '0 0 * * *'
   workflow_dispatch:
 
 jobs:
   send_message:
     runs-on: ubuntu-latest
-    name: send card
+    name: time - send card
 
     steps:
     - name: checkout
