@@ -1,7 +1,7 @@
 name: time - send card
 on:
   schedule:
-  - cron:  '0 0 * * *'
+  - cron:  '30 23 * * *'
 
 jobs:
   send_message:
