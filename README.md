@@ -8,7 +8,7 @@
 > 
 > 2023.4.27更新 免费天气API失效更换心知天气API 详见更新日志↓↓↓
 
-![墨菲安全](https://s.murphysec.com/badge/fromann/DailyWechat.svg)
+![墨菲安全](https://s.murphysec.com/badge/fromann/DailyWechat.svg)  
 [本项目已通过**墨菲安全**检测](https://www.murphysec.com/p/fromann/DailyWechat)
 
 
