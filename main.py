@@ -67,10 +67,15 @@ if __name__ == '__main__':
     wea_city, weather = get_weather(city, weather_key)
 
     end = ''
-    if weather['date'] == '2025-02-12':
-        end = '别忘记订酒店和火车票嗷'
-    elif weather['date'] == '2025-02-14':
-        end = '最后一天，调整好心态嗷，记得检查火车票和考场\n加油！爱您！'
+    if nowtime.strftime('%A') == 'Tuesday':
+        end = '您的小秘书今天下午三点到五点要上课，他不想上班'
+    elif if nowtime.strftime('%A') == 'Thursday':
+        end = '您的小秘书今天下午两点要开会，该问问他做完了没哈哈哈哈'
+    
+    if weather['date'] == '2025-02-26':
+        end = '中午吃点好的嗷，记得发作业'
+    elif weather['date'] == '2025-02-27':
+        end = '想报名的单位都报了嘛，该check一下日程表了'
     elif weather['date'] == '2025-02-15':
         end = '莫紧张，祝好姐姐正常发挥'
     elif weather['date'] == '2025-02-16':
