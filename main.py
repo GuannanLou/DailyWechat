@@ -69,7 +69,7 @@ if __name__ == '__main__':
     end = ''
     if nowtime.strftime('%A') == 'Tuesday':
         end = '您的小秘书今天下午三点到五点要上课，他不想上班'
-    elif if nowtime.strftime('%A') == 'Thursday':
+    elif nowtime.strftime('%A') == 'Thursday':
         end = '您的小秘书今天下午两点要开会，该问问他做完了没哈哈哈哈'
     
     if weather['date'] == '2025-02-26':
