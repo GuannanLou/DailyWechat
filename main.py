@@ -66,11 +66,12 @@ if __name__ == '__main__':
 
     wea_city, weather = get_weather(city, weather_key)
 
+    print(get_time().split('星期')[1])
     end = ''
-    if nowtime.strftime('%A') == 'Tuesday':
-        end = '您的小秘书今天下午三点到五点要上课，他不想上班'
-    elif nowtime.strftime('%A') == 'Thursday':
-        end = '您的小秘书今天下午两点要开会，该问问他做完了没哈哈哈哈'
+    if get_time().split('星期')[1] == '二':
+        end = '您的小秘书今天下午三点到五点要上课，他不想上班\n'
+    elif get_time().split('星期')[1] == '四':
+        end = '您的小秘书今天下午两点要开会，该问问他做完了没哈哈哈哈\n'
     
     if weather['date'] == '2025-02-26':
         end = '中午吃点好的嗷，记得发作业'
